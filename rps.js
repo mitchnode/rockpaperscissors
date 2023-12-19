@@ -7,8 +7,18 @@ function getComputerChoice(){
         return 'Paper';
     } else if (randomNumber === 2) {
         return 'Scissors';
+    } else {
+        return 'Error: math does not compute';
     }
 }
 
+// Prompt the player for thier choice, make case insensitive and check choice.
+function getPlayerChoice(){
+    let text = prompt('Please enter your choice (Rock, Paper, Scissors): ');
+    let choice = text.charAt(0).toUpperCase().concat(text.slice(1,text.length).toLowerCase())
+    console.log(choice);
+
+}
 // Test functions
 console.log(getComputerChoice());
+getPlayerChoice();
