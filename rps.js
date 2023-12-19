@@ -73,9 +73,9 @@ function game(){
         console.log('Score - Player: ' + playerWins + ' Computer: '+ computerWins);
     }
     console.log('Game Over!');
-    if (playerWins > computerWins){
+    if (playerWins > computerWins && playerWins === 3){
         console.log('You Win!');
-    } else if (playerWins < computerWins){
+    } else if (playerWins < computerWins && computerWins === 3){
         console.log('You Lose!');
     }
 }
