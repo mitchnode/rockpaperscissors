@@ -35,13 +35,13 @@ function playRound(playerSelection,computerSelection){
     console.log('Computer chose ' + computerSelection);
     console.log('You chose ' + playerSelection);
     if (playerSelection === computerSelection){
-        return ['It\'s a Tie!', 'T'];
+        return 'T';
     } else if ((playerSelection === 'Rock' && computerSelection == 'Scissors') || (playerSelection === 'Scissors' && computerSelection == 'Paper') || (playerSelection === 'Paper' && computerSelection == 'Rock')){
-        return ['You Win! ' + playerSelection + ' beats ' + computerSelection, 'P'];
+        return 'P';
     } else if ((computerSelection === 'Rock' && playerSelection == 'Scissors') || (computerSelection === 'Scissors' && playerSelection == 'Paper') || (computerSelection === 'Paper' && playerSelection == 'Rock')){
-        return ['You Lose! ' + computerSelection + ' beats ' + playerSelection, 'C'];
+        return 'C';
     } else {
-        return ['Something went wrong!', 'T'];
+        return false;
     }
 }
 
@@ -58,14 +58,17 @@ function game(){
             break;
         }
         result = playRound(playerSelection,computerSelection);
-        console.log(result[0]);
-        if (result[1] === 'T'){
-            console.log('Play again!');
+        if (result === 'T'){
+            console.log('It\'s a Tie! Play again!');
         }
-        else if (result[1] === 'P'){
+        else if (result === 'P'){
             playerWins += 1;
-        } else if (result[1] === 'C'){
+            console.log('You Win! ' + playerSelection + ' beats ' + computerSelection);
+        } else if (result === 'C'){
             computerWins += 1;
+            console.log('You Lose! ' + computerSelection + ' beats ' + playerSelection);
+        } else {
+            console.log('Something went wrong!');
         }
         console.log('Score - Player: ' + playerWins + ' Computer: '+ computerWins);
     }
