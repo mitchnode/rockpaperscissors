@@ -16,9 +16,13 @@ function getComputerChoice(){
 function getPlayerChoice(){
     let text = prompt('Please enter your choice (Rock, Paper, Scissors): ');
     let choice = text.charAt(0).toUpperCase().concat(text.slice(1,text.length).toLowerCase())
-    console.log(choice);
+    if (choice === 'Rock' || choice === 'Paper' || choice === 'Scissors'){
+        return choice;
+    } else {
+        return 'Incorrect entry. Please choose either Rock, Paper or Scissors.';
+    }
 
 }
 // Test functions
 console.log(getComputerChoice());
-getPlayerChoice();
+console.log(getPlayerChoice());
