@@ -80,4 +80,18 @@ function game(){
     }
 }
 
-game();
+function generateGame(){
+    const container = document.querySelector('.container');
+    const rockButton = document.createElement('button');
+    const paperButton = document.createElement('button');
+    const scissorsButton = document.createElement('button');
+    rockButton.textContent = 'Rock';
+    paperButton.textContent = 'Paper';
+    scissorsButton.textContent = 'Scissors';
+    rockButton.addEventListener(mouseup, function () {
+        //get player selection
+        //get computer selection
+        //playRound(playerSelection,computerSelection)
+    })
+}
+//game();
