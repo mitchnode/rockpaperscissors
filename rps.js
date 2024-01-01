@@ -94,12 +94,18 @@ function generateGame(){
     const scissorsButton = document.createElement('button');
     const resultText = document.createElement('p');
     resultText.classList = 'result';
+    const scorecard = document.createElement('div');
+    scorecard.classList = 'scorecard';
+    const playerScore = document.createElement('div');
+    const computerScore = document.createElement('div');
     content.appendChild(rockButton);
     content.appendChild(paperButton);
     content.appendChild(scissorsButton);
     container.appendChild(content);
     container.appendChild(resultText);
-
+    container.appendChild(scorecard);
+    scorecard.appendChild(playerScore);
+    scorecard.appendChild(computerScore);
     
     rockButton.textContent = 'Rock';
     paperButton.textContent = 'Paper';
