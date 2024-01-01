@@ -1,0 +1,22 @@
+h1 {
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    gap: 10%;
+    padding: 5% 10%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    min-height: 100px;
+    min-width: 100px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.result {
+    text-align: center;
+}

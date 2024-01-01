@@ -35,11 +35,16 @@ function playRound(playerSelection,computerSelection){
     console.log('Computer chose ' + computerSelection);
     console.log('You chose ' + playerSelection);
     if (playerSelection === computerSelection){
-        return 'T';
+        console.log('It\'s a Tie! Play again!');
+        return 'It\'s a Tie! Play again!';
     } else if ((playerSelection === 'Rock' && computerSelection == 'Scissors') || (playerSelection === 'Scissors' && computerSelection == 'Paper') || (playerSelection === 'Paper' && computerSelection == 'Rock')){
-        return 'P';
+        //playerWins += 1;
+        console.log('You Win! ' + playerSelection + ' beats ' + computerSelection);
+        return 'You Win! ' + playerSelection + ' beats ' + computerSelection;
     } else if ((computerSelection === 'Rock' && playerSelection == 'Scissors') || (computerSelection === 'Scissors' && playerSelection == 'Paper') || (computerSelection === 'Paper' && playerSelection == 'Rock')){
-        return 'C';
+        //computerWins += 1;
+        console.log('You Lose! ' + computerSelection + ' beats ' + playerSelection);
+        return 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
     } else {
         return false;
     }
@@ -82,16 +87,39 @@ function game(){
 
 function generateGame(){
     const container = document.querySelector('.container');
+    const content = document.createElement('div');
+    content.classList = 'content';
     const rockButton = document.createElement('button');
     const paperButton = document.createElement('button');
     const scissorsButton = document.createElement('button');
+    const resultText = document.createElement('p');
+    resultText.classList = 'result';
+    content.appendChild(rockButton);
+    content.appendChild(paperButton);
+    content.appendChild(scissorsButton);
+    container.appendChild(content);
+    container.appendChild(resultText);
+
+    
     rockButton.textContent = 'Rock';
     paperButton.textContent = 'Paper';
     scissorsButton.textContent = 'Scissors';
-    rockButton.addEventListener(mouseup, function () {
-        //get player selection
-        //get computer selection
-        //playRound(playerSelection,computerSelection)
+
+    rockButton.addEventListener("click", function () {
+        const playerSelection = 'Rock';
+        const computerSelection = getComputerChoice();
+        resultText.textContent = playRound(playerSelection,computerSelection);
     })
+    paperButton.addEventListener("click", function () {
+        const playerSelection = 'Paper';
+        const computerSelection = getComputerChoice();
+        resultText.textContent = playRound(playerSelection,computerSelection);
+    })
+    scissorsButton.addEventListener("click", function () {
+        const playerSelection = 'Scissors';
+        const computerSelection = getComputerChoice();
+        resultText.textContent = playRound(playerSelection,computerSelection);
+    })
+    
 }
-//game();
+generateGame();
