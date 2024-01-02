@@ -1,3 +1,8 @@
+// Set start scores
+let playerWins = 0;
+let computerWins = 0;
+
+
 // Geneterate the computers choice
 function getComputerChoice(){
     let randomNumber = Math.floor(Math.random() * 3);
@@ -38,11 +43,11 @@ function playRound(playerSelection,computerSelection){
         console.log('It\'s a Tie! Play again!');
         return 'It\'s a Tie! Play again!';
     } else if ((playerSelection === 'Rock' && computerSelection == 'Scissors') || (playerSelection === 'Scissors' && computerSelection == 'Paper') || (playerSelection === 'Paper' && computerSelection == 'Rock')){
-        //playerWins += 1;
+        playerWins += 1;
         console.log('You Win! ' + playerSelection + ' beats ' + computerSelection);
         return 'You Win! ' + playerSelection + ' beats ' + computerSelection;
     } else if ((computerSelection === 'Rock' && playerSelection == 'Scissors') || (computerSelection === 'Scissors' && playerSelection == 'Paper') || (computerSelection === 'Paper' && playerSelection == 'Rock')){
-        //computerWins += 1;
+        computerWins += 1;
         console.log('You Lose! ' + computerSelection + ' beats ' + playerSelection);
         return 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
     } else {
@@ -51,38 +56,21 @@ function playRound(playerSelection,computerSelection){
 }
 
 //Play the game, best of 5 replaying ties.
-function game(){
-    let computerSelection = '';
-    let playerSelection = '';
-    let playerWins = 0;
-    let computerWins = 0;
-    while (playerWins < 3 && computerWins < 3){
-        computerSelection = getComputerChoice();
-        playerSelection = getPlayerChoice();
-        if (playerSelection === false){
-            break;
-        }
+function playGame(playerSelection,computerSelection){
+    if (playerWins < 3 && computerWins < 3){
         result = playRound(playerSelection,computerSelection);
-        if (result === 'T'){
-            console.log('It\'s a Tie! Play again!');
-        }
-        else if (result === 'P'){
-            playerWins += 1;
-            console.log('You Win! ' + playerSelection + ' beats ' + computerSelection);
-        } else if (result === 'C'){
-            computerWins += 1;
-            console.log('You Lose! ' + computerSelection + ' beats ' + playerSelection);
-        } else {
-            console.log('Something went wrong!');
-        }
         console.log('Score - Player: ' + playerWins + ' Computer: '+ computerWins);
+    } else {
+        console.log('Game Over!');
+        if (playerWins > computerWins && playerWins === 3){
+            console.log('You Win!');
+            result = 'Game Over! You Win!';
+        } else if (playerWins < computerWins && computerWins === 3){
+            console.log('You Lose!');
+            result = 'Game Over! You Lose!';
+        }
     }
-    console.log('Game Over!');
-    if (playerWins > computerWins && playerWins === 3){
-        console.log('You Win!');
-    } else if (playerWins < computerWins && computerWins === 3){
-        console.log('You Lose!');
-    }
+    return [result, 'Score - Player: ' + playerWins + ' Computer: '+ computerWins];
 }
 
 function generateGame(){
@@ -114,17 +102,26 @@ function generateGame(){
     rockButton.addEventListener("click", function () {
         const playerSelection = 'Rock';
         const computerSelection = getComputerChoice();
-        resultText.textContent = playRound(playerSelection,computerSelection);
+        const roundResult = playGame(playerSelection,computerSelection)
+        resultText.textContent = roundResult[0];
+        playerScore.textContent = playerWins;
+        computerScore.textContent = computerWins;
     })
     paperButton.addEventListener("click", function () {
         const playerSelection = 'Paper';
         const computerSelection = getComputerChoice();
-        resultText.textContent = playRound(playerSelection,computerSelection);
+        const roundResult = playGame(playerSelection,computerSelection)
+        resultText.textContent = roundResult[0];
+        playerScore.textContent = playerWins;
+        computerScore.textContent = computerWins;
     })
     scissorsButton.addEventListener("click", function () {
         const playerSelection = 'Scissors';
         const computerSelection = getComputerChoice();
-        resultText.textContent = playRound(playerSelection,computerSelection);
+        const roundResult = playGame(playerSelection,computerSelection)
+        resultText.textContent = roundResult[0];
+        playerScore.textContent = playerWins;
+        computerScore.textContent = computerWins;
     })
     
 }
