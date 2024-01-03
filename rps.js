@@ -74,55 +74,52 @@ function playGame(playerSelection,computerSelection){
 }
 
 function generateGame(){
+    
     const container = document.querySelector('.container');
+    // Create content div
     const content = document.createElement('div');
-    content.classList = 'content';
-    const rockButton = document.createElement('button');
-    const paperButton = document.createElement('button');
-    const scissorsButton = document.createElement('button');
+    content.id = 'content';
+    container.appendChild(content);
+
+    // Create result paragraph
     const resultText = document.createElement('p');
-    resultText.classList = 'result';
+    resultText.id = 'result';
+    container.appendChild(resultText);
+
+    // Create scorecard with player and computer socres
     const scorecard = document.createElement('div');
     scorecard.classList = 'scorecard';
-    const playerScore = document.createElement('div');
-    const computerScore = document.createElement('div');
-    content.appendChild(rockButton);
-    content.appendChild(paperButton);
-    content.appendChild(scissorsButton);
-    container.appendChild(content);
-    container.appendChild(resultText);
     container.appendChild(scorecard);
-    scorecard.appendChild(playerScore);
-    scorecard.appendChild(computerScore);
-    
-    rockButton.textContent = 'Rock';
-    paperButton.textContent = 'Paper';
-    scissorsButton.textContent = 'Scissors';
 
-    rockButton.addEventListener("click", function () {
-        const playerSelection = 'Rock';
-        const computerSelection = getComputerChoice();
-        const roundResult = playGame(playerSelection,computerSelection)
-        resultText.textContent = roundResult[0];
-        playerScore.textContent = playerWins;
-        computerScore.textContent = computerWins;
-    })
-    paperButton.addEventListener("click", function () {
-        const playerSelection = 'Paper';
-        const computerSelection = getComputerChoice();
-        const roundResult = playGame(playerSelection,computerSelection)
-        resultText.textContent = roundResult[0];
-        playerScore.textContent = playerWins;
-        computerScore.textContent = computerWins;
-    })
-    scissorsButton.addEventListener("click", function () {
-        const playerSelection = 'Scissors';
-        const computerSelection = getComputerChoice();
-        const roundResult = playGame(playerSelection,computerSelection)
-        resultText.textContent = roundResult[0];
-        playerScore.textContent = playerWins;
-        computerScore.textContent = computerWins;
-    })
+    const playerScore = document.createElement('div');
+    playerScore.id = 'playerScore';
+    scorecard.appendChild(playerScore);
+
+    const computerScore = document.createElement('div');
+    computerScore.id = 'computerScore';
+    scorecard.appendChild(computerScore);
+
+    generateButton('Rock');
+    generateButton('Paper');
+    generateButton('Scissors');
     
+}
+
+function generateButton(selection){
+    const content = document.querySelector('#content');
+    const resultText = document.querySelector('#result');
+    const playerScore = document.querySelector('#playerScore');
+    const computerScore = document.querySelector('#computerScore');
+    const newButton = document.createElement('button');
+    content.appendChild(newButton);
+    newButton.textContent = selection;
+    newButton.addEventListener("click", function () {
+        const playerSelection = selection;
+        const computerSelection = getComputerChoice();
+        const roundResult = playGame(playerSelection,computerSelection)
+        resultText.textContent = roundResult[0];
+        playerScore.textContent = 'Player: ' + playerWins;
+        computerScore.textContent = 'Computer: ' + computerWins;
+    })
 }
 generateGame();

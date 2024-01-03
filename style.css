@@ -2,7 +2,7 @@ h1 {
     text-align: center;
 }
 
-.content {
+#content {
     display: flex;
     gap: 10%;
     padding: 5% 10%;
@@ -17,6 +17,14 @@ button {
     margin: 10px;
 }
 
-.result {
+#result {
     text-align: center;
 }
+
+.scorecard {
+    display: flex;
+    gap: 10%;
+    padding: 5%;
+    justify-content: center;
+}
+
