@@ -37,40 +37,26 @@ function getPlayerChoice(){
 
 // Play a round returning the result
 function playRound(playerSelection,computerSelection){
-    console.log('Computer chose ' + computerSelection);
-    console.log('You chose ' + playerSelection);
     if (playerSelection === computerSelection){
-        console.log('It\'s a Tie! Play again!');
         return 'It\'s a Tie! Play again!';
     } else if ((playerSelection === 'Rock' && computerSelection == 'Scissors') || (playerSelection === 'Scissors' && computerSelection == 'Paper') || (playerSelection === 'Paper' && computerSelection == 'Rock')){
         playerWins += 1;
-        console.log('You Win! ' + playerSelection + ' beats ' + computerSelection);
         return 'You Win! ' + playerSelection + ' beats ' + computerSelection;
     } else if ((computerSelection === 'Rock' && playerSelection == 'Scissors') || (computerSelection === 'Scissors' && playerSelection == 'Paper') || (computerSelection === 'Paper' && playerSelection == 'Rock')){
         computerWins += 1;
-        console.log('You Lose! ' + computerSelection + ' beats ' + playerSelection);
         return 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
     } else {
         return false;
     }
 }
 
-//Play the game, best of 5 replaying ties.
-function playGame(playerSelection,computerSelection){
-    if (playerWins < 3 && computerWins < 3){
-        result = playRound(playerSelection,computerSelection);
-        console.log('Score - Player: ' + playerWins + ' Computer: '+ computerWins);
-    } else {
-        console.log('Game Over!');
-        if (playerWins > computerWins && playerWins === 3){
-            console.log('You Win!');
-            result = 'Game Over! You Win!';
-        } else if (playerWins < computerWins && computerWins === 3){
-            console.log('You Lose!');
-            result = 'Game Over! You Lose!';
-        }
+// Check for winner
+function checkWinner(){
+    if (playerWins > computerWins && playerWins === 3){
+        gameOver('Player');
+    } else if (playerWins < computerWins && computerWins === 3){
+        gameOver('Computer');
     }
-    return [result, 'Score - Player: ' + playerWins + ' Computer: '+ computerWins];
 }
 
 function generateGame(){
@@ -94,10 +80,12 @@ function generateGame(){
     const playerScore = document.createElement('div');
     playerScore.id = 'playerScore';
     scorecard.appendChild(playerScore);
+    playerScore.textContent = 'Player: ' + playerWins;
 
     const computerScore = document.createElement('div');
     computerScore.id = 'computerScore';
     scorecard.appendChild(computerScore);
+    computerScore.textContent = 'Computer: ' + computerWins;
 
     generateButton('Rock');
     generateButton('Paper');
@@ -105,6 +93,45 @@ function generateGame(){
     
 }
 
+// Gameover function to end the game
+function gameOver(winner){
+    const container = document.querySelector('.container');
+
+    const buttons = document.querySelectorAll('.Selection');
+    buttons.forEach(function(button){button.setAttribute('Disabled',true)});
+        
+    const resultText = document.querySelector('#result');
+    resultText.textContent = 'Game Over! ' + winner + ' Wins!';
+
+    const newGameButton = document.createElement('button');
+    container.appendChild(newGameButton);
+    newGameButton.id = 'newgame';
+    newGameButton.textContent = 'New game';
+    newGameButton.addEventListener('click', function(){resetGame()});
+}
+
+// Remove elements and zero scores to reset game
+function resetGame(){
+    playerWins = 0;
+    computerWins = 0;
+    const playerScore = document.querySelector('#playerScore');
+    const computerScore = document.querySelector('#computerScore');
+    playerScore.textContent = 'Player: ' + playerWins;
+    computerScore.textContent = 'Computer: ' + computerWins;
+    
+    const container = document.querySelector('.container');
+    
+    const resultText = document.querySelector('#result');
+    const newGameButton = document.querySelector('#newgame');
+    resultText.textContent = '';
+    console.log('Reset Game');
+    container.removeChild(newGameButton);
+
+    const buttons = document.querySelectorAll('.Selection');
+    buttons.forEach(function(button){button.removeAttribute('disabled')});
+}
+
+// Create button with event listener
 function generateButton(selection){
     const content = document.querySelector('#content');
     const resultText = document.querySelector('#result');
@@ -113,13 +140,15 @@ function generateButton(selection){
     const newButton = document.createElement('button');
     content.appendChild(newButton);
     newButton.textContent = selection;
+    newButton.classList = 'Selection';
     newButton.addEventListener("click", function () {
         const playerSelection = selection;
         const computerSelection = getComputerChoice();
-        const roundResult = playGame(playerSelection,computerSelection)
-        resultText.textContent = roundResult[0];
+        const roundResult = playRound(playerSelection,computerSelection)
+        resultText.textContent = roundResult;
         playerScore.textContent = 'Player: ' + playerWins;
         computerScore.textContent = 'Computer: ' + computerWins;
+        checkWinner();
     })
 }
 generateGame();

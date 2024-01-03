@@ -26,5 +26,8 @@ button {
     gap: 10%;
     padding: 5%;
     justify-content: center;
+    border:black solid 1px;
+    border-radius: 10px;
 }
+
 
