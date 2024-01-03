@@ -1,6 +1,7 @@
 // Set start scores
 let playerWins = 0;
 let computerWins = 0;
+const SCORELIMIT = 5;
 
 
 // Geneterate the computers choice
@@ -52,9 +53,9 @@ function playRound(playerSelection,computerSelection){
 
 // Check for winner
 function checkWinner(){
-    if (playerWins > computerWins && playerWins === 3){
+    if (playerWins > computerWins && playerWins === SCORELIMIT){
         gameOver('Player');
-    } else if (playerWins < computerWins && computerWins === 3){
+    } else if (playerWins < computerWins && computerWins === SCORELIMIT){
         gameOver('Computer');
     }
 }
@@ -118,7 +119,7 @@ function resetGame(){
     const computerScore = document.querySelector('#computerScore');
     playerScore.textContent = 'Player: ' + playerWins;
     computerScore.textContent = 'Computer: ' + computerWins;
-    
+
     const container = document.querySelector('.container');
     
     const resultText = document.querySelector('#result');
